@@ -1,0 +1,42 @@
+# Digital Signage Client Configuration Template
+# Target: Raspberry Pi (Debian Trixie)
+
+device:
+  id: "RPI-LOBBY-01"
+  name: "Main Lobby Display"
+  username: "rpi_lobby_01"
+  password: "StrongPiPassword123!"
+  location: "Building A Floor 1"
+
+server:
+  base_url: "http://127.0.0.1:8000"
+  api_prefix: "/api/v1"
+  heartbeat_interval_seconds: 30
+  sync_interval_seconds: 60
+  timeout_seconds: 10
+
+storage:
+  base_dir: "/var/lib/digitalsignage"
+  db_dir: "/var/lib/digitalsignage/db"
+  media_dir: "/var/lib/digitalsignage/media"
+  playlists_dir: "/var/lib/digitalsignage/playlists"
+  temp_dir: "/var/lib/digitalsignage/temp"
+  logs_dir: "/var/lib/digitalsignage/logs"
+  database_file: "/var/lib/digitalsignage/db/client.sqlite"
+
+player:
+  backend: "mpv"
+  fullscreen: true
+  volume: 100
+  ipc_socket: "/tmp/mpv-socket"
+  mpv_args:
+    - "--no-osc"
+    - "--no-osd-bar"
+    - "--no-input-default-bindings"
+    - "--loop-file=inf"
+    - "--hwdec=auto"
+    - "--cursor-autohide=always"
+
+logging:
+  level: "INFO"
+  log_file: "/var/lib/digitalsignage/logs/client.log"

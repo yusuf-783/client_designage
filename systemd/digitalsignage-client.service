@@ -1,0 +1,29 @@
+[Unit]
+Description=Digital Signage Client Daemon (Raspberry Pi / Debian Trixie)
+Documentation=https://github.com/upatik/digital-signage
+After=network-online.target sound.target graphical.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/opt/digitalsignage/client
+Environment=PYTHONUNBUFFERED=1
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+Environment=DIGITALSIGNAGE_CONFIG=/etc/digitalsignage/config.yaml
+ExecStart=/opt/digitalsignage/client/.venv/bin/python -m app.main
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=digitalsignage-client
+
+# Sandboxing & Resource limits
+LimitNOFILE=65536
+KillMode=mixed
+TimeoutStopSec=10
+
+[Install]
+WantedBy=graphical.target
